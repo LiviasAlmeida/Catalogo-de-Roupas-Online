@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="imagens/Icons/logo-flowers-store.jpg" type="image/png">
     <title>Painel Administrativo - Flower's Store</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,6 +17,10 @@
     />
     <link rel="stylesheet" href="css/global.css" />
     <link rel="stylesheet" href="css/admin.css" />
+
+    <!-- CDN e Cliente do Supabase carregados no cabeçalho -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase.js"></script>
   </head>
 
   <body class="admin-body">
@@ -42,7 +47,7 @@
           <label for="senha">Senha</label>
           <input type="password" id="senha" class="form-control" required placeholder="Digite sua senha" autocomplete="current-password" />
         </div>
-        <button type="submit" style="margin-top: 10px;">
+        <button type="submit" style="margin-top: 10px; cursor: pointer;">
           <i class="bi bi-box-arrow-in-right"></i> Entrar no Painel
         </button>
       </form>
@@ -67,7 +72,7 @@
           <a href="index.html" target="_blank" class="btn-secondary">
             <i class="bi bi-shop"></i> Ver Loja Online
           </a>
-          <button id="btn-logout" type="button" class="btn-danger">
+          <button id="btn-logout" type="button" class="btn-danger" style="cursor: pointer;">
             <i class="bi bi-box-arrow-right"></i> Sair
           </button>
         </div>
@@ -102,8 +107,8 @@
               </select>
             </div>
             <div class="form-group" style="margin: 0;">
-              <label for="novo-url">URL da Imagem</label>
-              <input type="text" id="novo-url" class="form-control" placeholder="imagens/vestido.jpg ou link" />
+              <label for="novo-arquivo-imagem">Foto do Produto</label>
+              <input type="file" id="novo-arquivo-imagem" class="form-control" accept="image/*" required style="padding: 6px;" />
             </div>
             <div class="form-group" style="margin: 0;">
               <label for="novo-desconto">Desconto (Ex: -20%)</label>
@@ -118,11 +123,13 @@
         </div>
 
         <!-- CONFIGURAÇÃO DE SENHA -->
-        <div class="form-group">
-          <label for="input-senha-nova">Alterar Senha do Admin</label>
-          <div style="display: flex; gap: 10px;">
-            <input type="password" id="input-senha-nova" class="form-control" placeholder="Nova senha (mínimo 4 dígitos)" />
-            <button type="button" id="btn-salvar-senha" class="btn-secondary" style="width: auto; white-space: nowrap;">Atualizar Senha</button>
+        <div class="admin-card" style="margin-bottom: 25px;">
+          <div class="form-group" style="margin: 0;">
+            <label for="input-senha-nova">Alterar Senha do Admin</label>
+            <div style="display: flex; gap: 10px; margin-top: 5px;">
+              <input type="password" id="input-senha-nova" class="form-control" placeholder="Nova senha (mínimo 4 dígitos)" />
+              <button type="button" id="btn-salvar-senha" class="btn-secondary" style="width: auto; white-space: nowrap; cursor: pointer;">Atualizar Senha</button>
+            </div>
           </div>
         </div>
 
@@ -132,7 +139,7 @@
             <h2 style="margin: 0; border: none; padding: 0;">
               <i class="bi bi-tags"></i> Produtos Atuais no Catálogo (<span id="total-produtos">0</span>)
             </h2>
-            <button type="button" id="btn-recarregar" class="btn-secondary" style="width: auto; font-size: 0.85rem; padding: 6px 14px;">
+            <button type="button" id="btn-recarregar" class="btn-secondary" style="width: auto; font-size: 0.85rem; padding: 6px 14px; cursor: pointer;">
               <i class="bi bi-arrow-clockwise"></i> Atualizar Lista
             </button>
           </div>
@@ -142,7 +149,7 @@
               <thead>
                 <tr>
                   <th>Imagem</th>
-                  <th>Imagem_url</th>
+                  <th>URL da Imagem</th>
                   <th>Nome do Produto</th>
                   <th>Categoria</th>
                   <th>Preço</th>
@@ -250,17 +257,6 @@
           }
         }
 
-        const localProds = localStorage.getItem('flowers_produtos');
-        if (localProds) {
-          try {
-            produtosCarregados = JSON.parse(localProds);
-            if (Array.isArray(produtosCarregados) && produtosCarregados.length > 0) {
-              renderizarTabelaProdutos(produtosCarregados);
-              return;
-            }
-          } catch {}
-        }
-
         tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:red;">Erro ao carregar produtos.</td></tr>';
       }
 
@@ -274,7 +270,7 @@
         }
 
         tbody.innerHTML = produtos.map((p, idx) => {
-          const imagemSrc = p.imagem_url || p.imagem || 'imagens/logo-flowers-store.jpg';
+          const imagemSrc = p.imagem_url || 'imagens/logo-flowers-store.jpg';
 
           return `
             <tr>
@@ -294,13 +290,13 @@
               <td><input type="text" id="desconto-${idx}" value="${p.tag_desconto || ''}" class="form-control" style="font-size:0.8rem; padding:4px; width:70px;" placeholder="-20%"></td>
               <td>
                 <div style="display:flex; gap:6px; align-items:center;">
-                  <button type="button" class="btn-success" onclick="salvarProdutoUnico(${idx})" title="Salvar Alterações" style="padding: 4px 10px; font-size: 0.8rem; background-color: #198754; border:none; color: #fff; border-radius:4px;">
+                  <button type="button" class="btn-success" onclick="salvarProdutoUnico(${idx})" title="Salvar Alterações" style="padding: 4px 10px; font-size: 0.8rem; background-color: #198754; border:none; color: #fff; border-radius:4px; cursor:pointer;">
                     <i class="bi bi-check-lg"></i> Salvar
                   </button>
-                  <button type="button" class="action-btn btn-secondary" onclick="alternarStatus(${idx})" title="Ativar/Desativar" style="padding: 4px 8px;">
+                  <button type="button" class="action-btn btn-secondary" onclick="alternarStatus(${idx})" title="Ativar/Desativar" style="padding: 4px 8px; cursor:pointer;">
                     <i class="bi bi-power"></i>
                   </button>
-                  <button type="button" class="action-btn btn-danger" onclick="excluirProduto(${idx})" title="Excluir" style="padding: 4px 8px;">
+                  <button type="button" class="action-btn btn-danger" onclick="excluirProduto(${idx})" title="Excluir" style="padding: 4px 8px; cursor:pointer;">
                     <i class="bi bi-trash"></i>
                   </button>
                 </div>
@@ -317,8 +313,39 @@
         const precoStr = document.getElementById('novo-preco').value.replace(',', '.');
         const preco = parseFloat(precoStr) || 0;
         const categoria = document.getElementById('novo-categoria').value;
-        const imagem_url = document.getElementById('novo-url').value.trim() || 'imagens/logo-flowers-store.jpg';
         const tag_desconto = document.getElementById('novo-desconto').value.trim();
+        const inputFile = document.getElementById('novo-arquivo-imagem');
+
+        let imagem_url = 'imagens/logo-flowers-store.jpg';
+
+        if (inputFile.files && inputFile.files[0]) {
+          const arquivo = inputFile.files[0];
+          const nomeArquivoLimpo = Date.now() + '-' + arquivo.name.replace(/[^a-zA-Z0-9.-]/g, '_');
+
+          if (window.supabase) {
+            try {
+              const { error: uploadError } = await window.supabase.storage
+                .from('produtos')
+                .upload(nomeArquivoLimpo, arquivo);
+
+              if (uploadError) {
+                console.error('Erro no upload:', uploadError);
+                alert('Erro ao carregar a imagem para o armazenamento.');
+                return;
+              }
+
+              const { data: publicUrlData } = window.supabase.storage
+                .from('produtos')
+                .getPublicUrl(nomeArquivoLimpo);
+
+              if (publicUrlData) {
+                imagem_url = publicUrlData.publicUrl;
+              }
+            } catch (err) {
+              console.error('Erro de conexão no upload:', err);
+            }
+          }
+        }
 
         const novoProduto = {
           nome,
@@ -343,7 +370,7 @@
         }
 
         document.getElementById('form-novo-produto').reset();
-        mostrarFeedback(`🎉 Sucesso! Produto "${nome}" adicionado ao catálogo.`);
+        mostrarFeedback(`🎉 Sucesso! Produto "${nome}" adicionado com foto ao catálogo.`);
         carregarProdutos();
       });
 
@@ -381,14 +408,12 @@
           }
         }
 
-        localStorage.setItem('flowers_produtos', JSON.stringify(produtosCarregados));
         mostrarFeedback(`🎉 Sucesso! Produto "${produto.nome}" atualizado.`);
         carregarProdutos();
       };
 
       window.alternarStatus = async function(idx) {
         produtosCarregados[idx].ativo = !produtosCarregados[idx].ativo;
-        localStorage.setItem('flowers_produtos', JSON.stringify(produtosCarregados));
         if (window.supabase && produtosCarregados[idx].id) {
           await window.supabase.from('produtos').update({ ativo: produtosCarregados[idx].ativo }).eq('id', produtosCarregados[idx].id);
         }
@@ -400,7 +425,6 @@
         if (confirm(`Deseja realmente remover o produto "${produtosCarregados[idx].nome}"?`)) {
           const prodId = produtosCarregados[idx].id;
           produtosCarregados.splice(idx, 1);
-          localStorage.setItem('flowers_produtos', JSON.stringify(produtosCarregados));
           if (window.supabase && prodId) {
             await window.supabase.from('produtos').delete().eq('id', prodId);
           }
@@ -413,7 +437,7 @@
         const novaSenha = document.getElementById('input-senha-nova').value.trim();
         if (novaSenha.length < 4) return alert('A nova senha deve ter no mínimo 4 caracteres.');
         localStorage.setItem('flowers_admin_pass', novaSenha);
-        mostrarFeedback('Senha alterada com sucesso! Faça login novamente.');
+        mostrarFeedback('Senha alterada com sucesso! Faça login novamente com a nova senha.');
         document.getElementById('input-senha-nova').value = '';
         setTimeout(() => {
           localStorage.removeItem('flowers_admin_token');
@@ -426,11 +450,5 @@
 
       verificarAutenticacao();
     </script>
-
-    <!-- 1. CDN Oficial do Supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
-    <!-- 2. Arquivo de conexão do Supabase -->
-    <script src="supabase.js"></script>
   </body>
 </html>
