@@ -260,6 +260,46 @@
 
 
 /* ========================================
+   BOTÃO VOLTAR AO TOPO
+======================================== */
+
+.vinicius-voltar-topo {
+  position: fixed;
+
+  bottom: 20px;
+  right: 20px;
+
+  background-color: var(--primary-color);
+  color: var(--fifth-color);
+
+  width: 45px;
+  height: 45px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-decoration: none;
+  font-size: 1.4rem;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
+  z-index: 9999;
+
+  transition: transform 0.2s ease,
+              background-color 0.2s ease;
+}
+
+.vinicius-voltar-topo:hover {
+  transform: translateY(-3px);
+  background-color: var(--third-color);
+  color: #ffffff;
+}
+
+
+/* ========================================
    BOTÃO FLUTUANTE DO WHATSAPP
 ======================================== */
 
@@ -290,6 +330,12 @@
 
   transition: transform 0.2s ease,
               background-color 0.2s ease;
+}
+
+.whatsapp-flutuante:hover {
+  transform: translateY(-3px);
+  background-color: #20ba5a;
+  color: #ffffff;
 }
 
 
