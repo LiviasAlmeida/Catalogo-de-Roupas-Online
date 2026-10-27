@@ -1,5 +1,5 @@
 /* ==========================================================================
-   PAINEL ADMINISTRATIVO - FLOWER'S STORE (admin.html)
+   PAINEL ADMINISTRATIVO - FLOWER'S STORE (admin.css)
    ========================================================================== */
 
 .admin-body {
@@ -144,13 +144,45 @@
 
 .form-control {
     width: 100%;
-    padding: 12px 14px;
+    height: 42px;
+    padding: 6px 12px;
     border: 1.5px solid #d9c8c3;
     border-radius: 6px;
     font-size: 0.95rem;
     font-family: inherit;
     transition: border-color 0.2s ease;
     box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+}
+
+/* Faz o botão de escolher arquivo preencher todo o campo de forma limpa */
+input[type="file"].form-control {
+    padding: 0;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+input[type="file"].form-control::file-selector-button {
+    width: 100%;
+    height: 100%;
+    background-color: #f7ede9;
+    color: var(--primary-color, #680D1A);
+    border: none;
+    padding: 0 15px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    text-align: center;
+}
+
+input[type="file"].form-control::file-selector-button:hover {
+    background-color: #ebdcd7;
 }
 
 .form-control:focus {
@@ -254,6 +286,21 @@
     display: inline-flex;
     align-items: center;
     gap: 4px;
+}
+
+.action-btn:hover {
+    background-color: #C9C9C9 !important;
+    color: #555555 !important;
+}
+
+/* Botão de status quando o produto estiver desativado */
+.btn-inativo {
+    background-color: #C9C9C9 !important;
+    color: #555555 !important;
+}
+
+.btn-inativo:hover {
+    background-color: var(--fourth-color) !important;
 }
 
 .grid-2 {

@@ -34,7 +34,8 @@
 
 
 /* ========================================
-   TÍTULO DO CATÁLOGO
+   TÍTULO DO CATÁLOGO E SUBTÍTULO
+   (Perfeitamente alinhados entre si e com a grade)
 ======================================== */
 
 .vinicius-titulo-catalogo {
@@ -44,20 +45,29 @@
   text-decoration: none;
   border: none;
   margin-top: 20px;
-  margin-left: 70px;
+  margin-bottom: 5px;
+  width: 100%;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 30px;
+  box-sizing: border-box;
+  text-align: left;
 }
-
-
-/* ========================================
-   SUBTÍTULO
-======================================== */
 
 .vinicius-subtitulo {
   font-family: 'Montserrat', sans-serif;
   font-size: 14px;
   font-weight: 400;
   color: #5c5260;
-  margin-left: 140px;
+  margin-bottom: 10px;
+  width: 100%;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 30px;
+  box-sizing: border-box;
+  text-align: left;
 }
 
 
@@ -260,86 +270,6 @@
 
 
 /* ========================================
-   BOTÃO VOLTAR AO TOPO
-======================================== */
-
-.vinicius-voltar-topo {
-  position: fixed;
-
-  bottom: 20px;
-  right: 20px;
-
-  background-color: var(--primary-color);
-  color: var(--fifth-color);
-
-  width: 45px;
-  height: 45px;
-
-  border-radius: 50%;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  text-decoration: none;
-  font-size: 1.4rem;
-
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-
-  z-index: 9999;
-
-  transition: transform 0.2s ease,
-              background-color 0.2s ease;
-}
-
-.vinicius-voltar-topo:hover {
-  transform: translateY(-3px);
-  background-color: var(--third-color);
-  color: #ffffff;
-}
-
-
-/* ========================================
-   BOTÃO FLUTUANTE DO WHATSAPP
-======================================== */
-
-.whatsapp-flutuante {
-  position: fixed;
-
-  bottom: 20px;
-  right: 75px;
-
-  background-color: #25d366;
-  color: #ffffff;
-
-  width: 45px;
-  height: 45px;
-
-  border-radius: 50%;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  text-decoration: none;
-  font-size: 1.4rem;
-
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-
-  z-index: 9999;
-
-  transition: transform 0.2s ease,
-              background-color 0.2s ease;
-}
-
-.whatsapp-flutuante:hover {
-  transform: translateY(-3px);
-  background-color: #20ba5a;
-  color: #ffffff;
-}
-
-
-/* ========================================
    RESPONSIVIDADE PARA TABLETS
 ======================================== */
 
@@ -362,17 +292,11 @@
 
 @media (max-width: 600px) {
 
-  /* Título */
+  /* Título e Subtítulo */
 
-  .vinicius-titulo-catalogo {
-    margin-left: 20px;
-  }
-
-  /* Subtítulo */
-
+  .vinicius-titulo-catalogo,
   .vinicius-subtitulo {
-    margin-left: 20px;
-    margin-right: 20px;
+    padding: 0 15px;
   }
 
   /* Catálogo */
@@ -433,24 +357,6 @@
 
   .menu-link-navegacao-secundaria ion-icon {
     font-size: 20px;
-  }
-
-  /* Botões flutuantes */
-
-  .vinicius-voltar-topo,
-  .whatsapp-flutuante {
-    width: 40px;
-    height: 40px;
-    bottom: 15px;
-    font-size: 1.2rem;
-  }
-
-  .vinicius-voltar-topo {
-    right: 12px;
-  }
-
-  .whatsapp-flutuante {
-    right: 60px;
   }
 
 }

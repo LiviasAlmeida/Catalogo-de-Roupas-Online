@@ -65,11 +65,11 @@
           />
           <div>
             <h1>Flower's Store - Painel do Lojista</h1>
-            <p style="font-size: 0.8rem; color: #f5ebe6; margin: 0;">Atualização de Catálogo e Vendas WhatsApp</p>
+            <p style="font-size: 0.8rem; color: #f5ebe6; margin: 0;">Atualização de Catálogo</p>
           </div>
         </div>
         <div class="admin-header-actions">
-          <a href="index.html" target="_blank" class="btn-secondary">
+          <a href="produtos.html" target="_blank" class="btn-secondary">
             <i class="bi bi-shop"></i> Ver Loja Online
           </a>
           <button id="btn-logout" type="button" class="btn-danger" style="cursor: pointer;">
@@ -85,40 +85,47 @@
         <!-- FORMULÁRIO PARA ADICIONAR NOVO PRODUTO -->
         <div class="admin-card" style="margin-bottom: 25px;">
           <h2 style="margin-bottom: 15px; border: none; padding: 0;">
-            <i class="bi bi-plus-circle-fill" style="color: #198754;"></i> Adicionar Novo Produto ao Catálogo
+            <i class="bi bi-plus-circle-fill" style="color: #198754;"></i> Adicionar novo produto ao catálogo
           </h2>
+
           <form id="form-novo-produto" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; align-items: flex-end;">
             <div class="form-group" style="margin: 0;">
               <label for="novo-nome">Nome do Produto</label>
               <input type="text" id="novo-nome" class="form-control" required placeholder="Ex: Vestido Midi de Linho" />
             </div>
+
             <div class="form-group" style="margin: 0;">
               <label for="novo-preco">Preço (R$)</label>
               <input type="text" id="novo-preco" class="form-control" required placeholder="Ex: 159.90" />
             </div>
+
             <div class="form-group" style="margin: 0;">
               <label for="novo-categoria">Categoria</label>
               <select id="novo-categoria" class="form-control">
                 <option value="vestidos">Vestidos</option>
-                <option value="bermudas">Bermudas</option>
-                <option value="camisetas_e_blusas">Camisetas e Blusas</option>
+                <option value="conjuntos">Conjuntos</option>
+                <option value="blusas">Blusas</option>
                 <option value="macacoes">Macacões</option>
                 <option value="promocao">Promoção</option>
               </select>
             </div>
+
             <div class="form-group" style="margin: 0;">
               <label for="novo-arquivo-imagem">Foto do Produto</label>
               <input type="file" id="novo-arquivo-imagem" class="form-control" accept="image/*" required style="padding: 6px;" />
             </div>
+
             <div class="form-group" style="margin: 0;">
               <label for="novo-desconto">Desconto (Ex: -20%)</label>
               <input type="text" id="novo-desconto" class="form-control" placeholder="Opcional" />
             </div>
+
             <div>
               <button type="submit" class="btn-success" style="width: 100%; padding: 10px; background-color: #198754; border: none; color: #fff; border-radius: 6px; font-weight: 600; cursor: pointer;">
                 <i class="bi bi-plus-lg"></i> Cadastrar Peça
               </button>
             </div>
+
           </form>
         </div>
 
@@ -280,8 +287,8 @@
               <td>
                 <select id="cat-${idx}" class="form-control" style="font-size:0.8rem; padding:4px;">
                   <option value="vestidos" ${p.categoria === 'vestidos' ? 'selected' : ''}>Vestidos</option>
-                  <option value="bermudas" ${p.categoria === 'bermudas' ? 'selected' : ''}>Bermudas</option>
-                  <option value="camisetas_e_blusas" ${p.categoria === 'camisetas_e_blusas' ? 'selected' : ''}>Camisetas e Blusas</option>
+                  <option value="conjuntos" ${p.categoria === 'conjuntos' ? 'selected' : ''}>Conjuntos</option>
+                  <option value="blusas" ${p.categoria === 'blusas' ? 'selected' : ''}>Blusas</option>
                   <option value="macacoes" ${p.categoria === 'macacoes' ? 'selected' : ''}>Macacões</option>
                   <option value="promocao" ${p.categoria === 'promocao' ? 'selected' : ''}>Promoção</option>
                 </select>
@@ -293,8 +300,8 @@
                   <button type="button" class="btn-success" onclick="salvarProdutoUnico(${idx})" title="Salvar Alterações" style="padding: 4px 10px; font-size: 0.8rem; background-color: #198754; border:none; color: #fff; border-radius:4px; cursor:pointer;">
                     <i class="bi bi-check-lg"></i> Salvar
                   </button>
-                  <button type="button" class="action-btn btn-secondary" onclick="alternarStatus(${idx})" title="Ativar/Desativar" style="padding: 4px 8px; cursor:pointer;">
-                    <i class="bi bi-power"></i>
+                  <button type="button" class="action-btn ${p.ativo === false ? 'btn-inativo' : 'btn-secondary'}" onclick="alternarStatus(${idx})" title="Ativar/Desativar" style="padding: 4px 8px; cursor:pointer;">
+                  <i class="bi bi-power"></i>
                   </button>
                   <button type="button" class="action-btn btn-danger" onclick="excluirProduto(${idx})" title="Excluir" style="padding: 4px 8px; cursor:pointer;">
                     <i class="bi bi-trash"></i>

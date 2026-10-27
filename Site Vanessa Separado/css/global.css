@@ -170,7 +170,7 @@ header {
     align-items: center;
     justify-content: space-between;
     text-align: center;
-    position: relative;
+    position: relative !important; /* Essencial para fixar a tag dentro do card */
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -205,15 +205,16 @@ header {
 }
 
 .tag-desconto {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+    position: absolute !important;
+    top: 10px !important;
+    right: 10px !important;
     background: var(--secondary-color);
     color: #ffffff;
     padding: 5px 10px;
     border-radius: 4px;
     font-size: 0.85rem;
     font-weight: bold;
+    z-index: 2 !important;
 }
 
 button {
@@ -258,10 +259,6 @@ button:active {
   text-transform: uppercase;
   text-align: center;
 }
-
-.titulo-loja-baixo {
-    font-size: 1.7rem;
-  }
 
 /* RESPONSIVIDADE GLOBAL DO CABEÇALHO E MENU */
 @media (max-width: 768px) {
